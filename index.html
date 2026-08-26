@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Bíblico</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<main class="quiz-container">
+
+    <!-- TELA 1 - ESCOLHA DO JOGADOR -->
+
+    <section id="telaJogador">
+
+        <h1>✝ Quiz Bíblico</h1>
+
+        <h2>Quem está jogando?</h2>
+
+        <section class="jogadores">
+
+            <button class="jogador" data-nome="João">
+                <span class="avatar">👦</span>
+                <span>João</span>
+            </button>
+
+            <button class="jogador" data-nome="Maria">
+                <span class="avatar">👧</span>
+                <span>Maria</span>
+            </button>
+
+        </section>
+
+        <button id="novoJogador">
+            + Novo jogador
+        </button>
+
+    </section>
+
+
+    <!-- TELA 2 - CATEGORIAS -->
+
+    <section id="telaCategorias" class="oculta">
+
+        <h1>✝ Quiz Bíblico</h1>
+
+        <h2 id="mensagemJogador"></h2>
+
+        <p>Escolha uma categoria</p>
+
+        <section class="categorias">
+
+            <button class="categoria">
+                <span class="icone">👤</span>
+                <span>Personagens</span>
+            </button>
+
+            <button class="categoria">
+                <span class="icone">📖</span>
+                <span>Histórias</span>
+            </button>
+
+            <button class="categoria">
+                <span class="icone">✨</span>
+                <span>Milagres</span>
+            </button>
+
+            <button class="categoria">
+                <span class="icone">📜</span>
+                <span>Livros da Bíblia</span>
+            </button>
+
+            <button class="categoria">
+                <span class="icone">💬</span>
+                <span>Versículos</span>
+            </button>
+
+            <button class="categoria">
+                <span class="icone">📯</span>
+                <span>Profecias</span>
+            </button>
+
+        </section>
+
+        <button id="voltarJogador">
+            ← Voltar
+        </button>
+
+    </section>
+
+<!-- TELA 3 - DIFICULDADE -->
+
+    <section id="telaDificuldade" class="oculta">
+
+        <h1>✝ Quiz Bíblico</h1>
+
+        <h2 id="tituloCategoria"></h2>
+
+        <p>Escolha a dificuldade</p>
+
+        <section class="dificuldades">
+
+            <button class="dificuldade" data-dificuldade="Fácil">
+                <span class="icone">🌱</span>
+                <span>Fácil</span>
+            </button>
+
+            <button class="dificuldade" data-dificuldade="Médio">
+                <span class="icone">📖</span>
+                <span>Médio</span>
+            </button>
+
+            <button class="dificuldade" data-dificuldade="Difícil">
+                <span class="icone">🔥</span>
+                <span>Difícil</span>
+            </button>
+
+        </section>
+
+        <button id="voltarCategorias">
+            ← Voltar
+        </button>
+
+    </section>
+
+</main>
+
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
