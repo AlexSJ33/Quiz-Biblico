@@ -7,6 +7,7 @@ let categoriaSelecionada = "";
 let dificuldadeSelecionada = "";
 let pontuacaoAtual = 0;
 let perguntaRespondida = false;
+let perguntaAtual = 0;
 
 
 // ==========================================
@@ -38,6 +39,8 @@ const telaDificuldade = document.querySelector("#telaDificuldade");
 
 const telaPergunta = document.querySelector("#telaPergunta");
 
+const telaResultado = document.querySelector("#telaResultado");
+
 
 // ==========================================
 // ELEMENTOS DE INFORMAÇÃO
@@ -61,6 +64,17 @@ const textoPergunta =
 const resultadoResposta =
     document.querySelector("#resultadoResposta");
 
+const resultadoJogador =
+    document.querySelector("#resultadoJogador");
+
+const resultadoCategoria =
+    document.querySelector("#resultadoCategoria");
+
+const resultadoDificuldade =
+    document.querySelector("#resultadoDificuldade");
+
+const pontuacaoFinal =
+    document.querySelector("#pontuacaoFinal");
 
 // ==========================================
 // BOTÕES DE VOLTAR
@@ -72,12 +86,52 @@ const voltarJogador =
 const voltarCategorias =
     document.querySelector("#voltarCategorias");
 
+const proximaPergunta =
+    document.querySelector("#proximaPergunta");
+
+const jogarNovamente =
+    document.querySelector("#jogarNovamente");
+
 
 // ==========================================
-// RESPOSTA CORRETA
+// CARREGAR PERGUNTA
 // ==========================================
 
-const respostaCorreta = "B";
+function carregarPergunta() {
+
+    const pergunta = perguntas[perguntaAtual];
+
+    textoPergunta.textContent =
+        pergunta.pergunta;
+
+    alternativas.forEach(function (alternativa, indice) {
+
+        alternativa.textContent =
+            String.fromCharCode(65 + indice) +
+            ") " +
+            pergunta.alternativas[indice];
+
+        alternativa.dataset.resposta =
+            String.fromCharCode(65 + indice);
+
+        alternativa.disabled = false;
+
+    });
+
+    numeroPergunta.textContent =
+        "Pergunta " +
+        (perguntaAtual + 1) +
+        " de " +
+        perguntas.length;
+
+    pontuacao.textContent =
+        "Pontos: " +
+        pontuacaoAtual;
+
+    resultadoResposta.textContent = "";
+
+    perguntaRespondida = false;
+}
 
 
 // ==========================================
@@ -141,6 +195,8 @@ dificuldades.forEach(function (dificuldade) {
 
         telaPergunta.classList.remove("oculta");
 
+        carregarPergunta();
+
     });
 
 });
@@ -154,17 +210,18 @@ alternativas.forEach(function (alternativa) {
 
     alternativa.addEventListener("click", function () {
 
-        // Impede responder novamente
         if (perguntaRespondida) {
             return;
         }
 
-        // Marca a pergunta como respondida
         perguntaRespondida = true;
 
 
         const respostaEscolhida =
             alternativa.dataset.resposta;
+
+        const respostaCorreta =
+            perguntas[perguntaAtual].correta;
 
 
         if (respostaEscolhida === respostaCorreta) {
@@ -186,16 +243,67 @@ alternativas.forEach(function (alternativa) {
             "Pontos: " + pontuacaoAtual;
 
 
-        // Desabilita todas as alternativas
         alternativas.forEach(function (botao) {
 
             botao.disabled = true;
 
         });
 
+        proximaPergunta.classList.remove("oculta");
+
     });
 
 });
+
+// ==========================================
+// PRÓXIMA PERGUNTA
+// ==========================================
+
+proximaPergunta.addEventListener("click", function () {
+
+    perguntaAtual++;
+
+    if (perguntaAtual < perguntas.length) {
+
+        carregarPergunta();
+
+        proximaPergunta.classList.add("oculta");
+
+    } else {
+
+        mostrarResultado();
+
+    }
+
+});
+
+// ==========================================
+// MOSTRAR RESULTADO
+// ==========================================
+
+function mostrarResultado() {
+
+    telaPergunta.classList.add("oculta");
+
+    telaResultado.classList.remove("oculta");
+
+
+    resultadoJogador.textContent =
+        "Parabéns, " + jogadorSelecionado + "!";
+
+
+    resultadoCategoria.textContent =
+        "Categoria: " + categoriaSelecionada;
+
+
+    resultadoDificuldade.textContent =
+        "Dificuldade: " + dificuldadeSelecionada;
+
+
+    pontuacaoFinal.textContent =
+        pontuacaoAtual;
+
+}
 
 
 // ==========================================
@@ -220,5 +328,24 @@ voltarCategorias.addEventListener("click", function () {
     telaDificuldade.classList.add("oculta");
 
     telaCategorias.classList.remove("oculta");
+
+});
+
+// ==========================================
+// JOGAR NOVAMENTE
+// ==========================================
+
+jogarNovamente.addEventListener("click", function () {
+
+    perguntaAtual = 0;
+
+    pontuacaoAtual = 0;
+
+    perguntaRespondida = false;
+
+
+    telaResultado.classList.add("oculta");
+
+    telaJogador.classList.remove("oculta");
 
 });
