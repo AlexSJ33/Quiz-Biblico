@@ -270,3 +270,79 @@ h2 {
 #voltarCategorias:hover {
     background: #35291d;
 }
+
+.informacoes-quiz {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+
+    color: #d9aa4f;
+
+    font-size: 14px;
+}
+
+.pergunta {
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    background: #35291d;
+
+    border: 1px solid #80612f;
+
+    border-radius: 15px;
+}
+
+.pergunta h2 {
+    margin: 0;
+
+    font-size: 24px;
+
+    line-height: 1.4;
+}
+
+.alternativas {
+    display: grid;
+
+    gap: 12px;
+}
+
+.alternativa {
+    width: 100%;
+
+    padding: 18px;
+
+    text-align: left;
+
+    background: #35291d;
+
+    color: #f5e6c8;
+
+    border: 1px solid #80612f;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    transition: 0.2s;
+}
+
+.alternativa:hover {
+    background: #453521;
+
+    border-color: #d9aa4f;
+}
+
+#resultadoResposta {
+    min-height: 25px;
+
+    margin-top: 20px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}

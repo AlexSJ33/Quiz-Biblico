@@ -1,31 +1,95 @@
+// ==========================================
+// VARIÁVEIS DO QUIZ
+// ==========================================
+
 let jogadorSelecionado = "";
 let categoriaSelecionada = "";
+let dificuldadeSelecionada = "";
+let pontuacaoAtual = 0;
+let perguntaRespondida = false;
 
 
+// ==========================================
+// ELEMENTOS DO HTML
+// ==========================================
+
+// Jogadores
 const jogadores = document.querySelectorAll(".jogador");
 
+// Categorias
 const categorias = document.querySelectorAll(".categoria");
 
+// Dificuldades
+const dificuldades = document.querySelectorAll(".dificuldade");
+
+// Alternativas
+const alternativas = document.querySelectorAll(".alternativa");
+
+
+// ==========================================
+// TELAS
+// ==========================================
+
 const telaJogador = document.querySelector("#telaJogador");
+
 const telaCategorias = document.querySelector("#telaCategorias");
+
 const telaDificuldade = document.querySelector("#telaDificuldade");
 
-const mensagemJogador = document.querySelector("#mensagemJogador");
-const tituloCategoria = document.querySelector("#tituloCategoria");
-
-const voltarJogador = document.querySelector("#voltarJogador");
-const voltarCategorias = document.querySelector("#voltarCategorias");
+const telaPergunta = document.querySelector("#telaPergunta");
 
 
-/* ============================= */
-/* ESCOLHER JOGADOR */
-/* ============================= */
+// ==========================================
+// ELEMENTOS DE INFORMAÇÃO
+// ==========================================
+
+const mensagemJogador =
+    document.querySelector("#mensagemJogador");
+
+const tituloCategoria =
+    document.querySelector("#tituloCategoria");
+
+const numeroPergunta =
+    document.querySelector("#numeroPergunta");
+
+const pontuacao =
+    document.querySelector("#pontuacao");
+
+const textoPergunta =
+    document.querySelector("#textoPergunta");
+
+const resultadoResposta =
+    document.querySelector("#resultadoResposta");
+
+
+// ==========================================
+// BOTÕES DE VOLTAR
+// ==========================================
+
+const voltarJogador =
+    document.querySelector("#voltarJogador");
+
+const voltarCategorias =
+    document.querySelector("#voltarCategorias");
+
+
+// ==========================================
+// RESPOSTA CORRETA
+// ==========================================
+
+const respostaCorreta = "B";
+
+
+// ==========================================
+// ESCOLHER JOGADOR
+// ==========================================
 
 jogadores.forEach(function (jogador) {
 
     jogador.addEventListener("click", function () {
 
-        jogadorSelecionado = jogador.dataset.nome;
+        jogadorSelecionado =
+            jogador.dataset.nome;
 
         mensagemJogador.textContent =
             "Olá, " + jogadorSelecionado + "!";
@@ -39,9 +103,9 @@ jogadores.forEach(function (jogador) {
 });
 
 
-/* ============================= */
-/* ESCOLHER CATEGORIA */
-/* ============================= */
+// ==========================================
+// ESCOLHER CATEGORIA
+// ==========================================
 
 categorias.forEach(function (categoria) {
 
@@ -62,9 +126,81 @@ categorias.forEach(function (categoria) {
 });
 
 
-/* ============================= */
-/* VOLTAR PARA JOGADOR */
-/* ============================= */
+// ==========================================
+// ESCOLHER DIFICULDADE
+// ==========================================
+
+dificuldades.forEach(function (dificuldade) {
+
+    dificuldade.addEventListener("click", function () {
+
+        dificuldadeSelecionada =
+            dificuldade.dataset.dificuldade;
+
+        telaDificuldade.classList.add("oculta");
+
+        telaPergunta.classList.remove("oculta");
+
+    });
+
+});
+
+
+// ==========================================
+// RESPONDER PERGUNTA
+// ==========================================
+
+alternativas.forEach(function (alternativa) {
+
+    alternativa.addEventListener("click", function () {
+
+        // Impede responder novamente
+        if (perguntaRespondida) {
+            return;
+        }
+
+        // Marca a pergunta como respondida
+        perguntaRespondida = true;
+
+
+        const respostaEscolhida =
+            alternativa.dataset.resposta;
+
+
+        if (respostaEscolhida === respostaCorreta) {
+
+            pontuacaoAtual += 10;
+
+            resultadoResposta.textContent =
+                "Resposta correta! +10 pontos";
+
+        } else {
+
+            resultadoResposta.textContent =
+                "Resposta incorreta!";
+
+        }
+
+
+        pontuacao.textContent =
+            "Pontos: " + pontuacaoAtual;
+
+
+        // Desabilita todas as alternativas
+        alternativas.forEach(function (botao) {
+
+            botao.disabled = true;
+
+        });
+
+    });
+
+});
+
+
+// ==========================================
+// VOLTAR PARA ESCOLHA DO JOGADOR
+// ==========================================
 
 voltarJogador.addEventListener("click", function () {
 
@@ -75,9 +211,9 @@ voltarJogador.addEventListener("click", function () {
 });
 
 
-/* ============================= */
-/* VOLTAR PARA CATEGORIA */
-/* ============================= */
+// ==========================================
+// VOLTAR PARA CATEGORIAS
+// ==========================================
 
 voltarCategorias.addEventListener("click", function () {
 
