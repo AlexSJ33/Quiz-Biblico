@@ -4,10 +4,12 @@
 
 let jogadorSelecionado = "";
 let categoriaSelecionada = "";
+let idCategoriaSelecionada = 0;
 let dificuldadeSelecionada = "";
 let pontuacaoAtual = 0;
 let perguntaRespondida = false;
 let perguntaAtual = 0;
+
 
 
 // ==========================================
@@ -97,6 +99,18 @@ const jogarNovamente =
 // CARREGAR PERGUNTA
 // ==========================================
 
+async function carregarPerguntas() {
+
+    const resposta = await fetch(
+        "api/perguntas.php?id_categoria=" +
+        idCategoriaSelecionada
+    );
+
+    perguntas = await resposta.json();
+
+    carregarPergunta();
+}
+
 function carregarPergunta() {
 
     const pergunta = perguntas[perguntaAtual];
@@ -168,6 +182,9 @@ categorias.forEach(function (categoria) {
         categoriaSelecionada =
             categoria.textContent.trim();
 
+        idCategoriaSelecionada =
+            categoria.dataset.id;    
+
         tituloCategoria.textContent =
             categoriaSelecionada;
 
@@ -195,7 +212,8 @@ dificuldades.forEach(function (dificuldade) {
 
         telaPergunta.classList.remove("oculta");
 
-        carregarPergunta();
+        //carregarPergunta();
+        carregarPerguntas();
 
     });
 

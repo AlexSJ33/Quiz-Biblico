@@ -35,6 +35,49 @@ $stmt->execute();
 $perguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
+// Para cada pergunta, buscar suas alternativas
+
+foreach ($perguntas as &$pergunta) {
+
+    $sqlAlternativas = "SELECT texto, correta
+                        FROM tb_alternativa
+                        WHERE id_pergunta = :id_pergunta
+                        ORDER BY id_alternativa";
+
+
+    $stmtAlternativas = $conexao->prepare($sqlAlternativas);
+
+    $stmtAlternativas->bindParam(
+        ":id_pergunta",
+        $pergunta["id_pergunta"],
+        PDO::PARAM_INT
+    );
+
+    $stmtAlternativas->execute();
+
+
+    $alternativas = $stmtAlternativas->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $pergunta["alternativas"] = [];
+
+    $pergunta["correta"] = "";
+
+
+    foreach ($alternativas as $indice => $alternativa) {
+
+        $pergunta["alternativas"][] = $alternativa["texto"];
+
+
+        if ($alternativa["correta"] == 1) {
+
+            $pergunta["correta"] =
+                chr(65 + $indice);
+        }
+    }
+}
+
+
 echo json_encode(
     $perguntas,
     JSON_UNESCAPED_UNICODE
