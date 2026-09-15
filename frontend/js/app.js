@@ -100,13 +100,28 @@ const jogarNovamente =
 // ==========================================
 
 async function carregarPerguntas() {
-
     const resposta = await fetch(
         "api/perguntas.php?id_categoria=" +
-        idCategoriaSelecionada
+        idCategoriaSelecionada +
+        "&dificuldade=" +
+        encodeURIComponent(dificuldadeSelecionada)
     );
 
     perguntas = await resposta.json();
+
+    if (perguntas.length === 0) {
+        alert(
+            "Ainda não existem perguntas cadastradas para " +
+            categoriaSelecionada +
+            " - " +
+            dificuldadeSelecionada
+        );
+
+        telaPergunta.classList.add("oculta");
+        telaDificuldade.classList.remove("oculta");
+
+        return;
+    }
 
     carregarPergunta();
 }
